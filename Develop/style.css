@@ -17,15 +17,10 @@ body {
 
 .time-block{
   text-align: center;
-  border-radius: 15px;
 }
 textarea {
   height: 100px;
-}
-.hour {
-  background-color: #ffffff;
-  color: #000000;
-  border-top: 1px dashed #000000;
+  resize: none;
 }
 
 .past {

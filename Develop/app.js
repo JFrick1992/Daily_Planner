@@ -36,22 +36,39 @@ function generatePlanner() {
         row.classList.add('row')
         let time = getHourString(i)
         let bgclass = getPastPresentFuture(i, parseInt(dt.format('HH')))
+        let textVal = getText(`text-${i}`)
         row.innerHTML =
             `
             <div class="col-1 time-block rounded-left border border-dark border-right-0">
                 ${time}
             </div>
             <div class="col-10 border p-0">
-                <textarea name="" id="text-${i}" class="${bgclass} border border-dark w-100"></textarea>
+                <textarea id="text-${i}" class="${bgclass} border border-dark w-100"></textarea>
              </div>
             <button class="col-1 saveBtn btn border-dark" id="btn-${i}">Save</button>
         `
         document.getElementById('planner').append(row)
+        document.getElementById(`text-${i}`).value = textVal
     }
 
 }
-document.addEventListener('click', () => {
-
+function saveText(id, text) {
+    localStorage.setItem(id, text)
+}
+function getText(id) {
+    let text = ""
+    if(localStorage.getItem(id) != null) {
+        text = localStorage.getItem(id)
+    }
+    return text
+}
+document.addEventListener('click', ({target}) => {
+    let regex = /btn-[1-9][1-9]*/
+    if(regex.test(target.id)) {
+        let textID = `text-${target.id.substring(4)}`
+        let text = document.getElementById(textID).value
+        saveText(textID, text)
+    }
 
 })
 setDay()
